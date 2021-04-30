@@ -1,0 +1,135 @@
+#
+# wm independent hotkeys
+#
+# terminal emulator
+super + Return
+	xfce4-terminal
+#program launcher
+super + @space
+	rofi -show run
+#rofi app abiertas
+super + alt + v
+	rofi -show window
+# Cargar sus archivos de configuración: sxhkd
+super + Escape
+	pkill -USR1 -x sxhkd
+
+#
+# bspwm hotkeys
+#
+
+# quit/restart bspwm
+super + alt + {q,r}
+	bspc {quit,wm -r}
+
+# close and kill
+super + {_,shift + }x
+	bspc node -{c,k}
+
+# alternar entre el diseño de mosaico y monóculo
+super + alt + m
+	bspc desktop -l next
+# intercambiar el nodo actual y el nodo más grande
+super + g
+	bspc node -s biggest
+
+#
+# state/flags
+#
+
+# establecer el estado de la ventana
+super + {t,shift + t,s,f}
+	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+
+
+# focus/swap
+#
+# enfoca el nodo en la dirección dada
+#el h y l mueven las ventanas a la izquierda o derecha
+super + {_,shift + }{h,j,k,l}
+	bspc node -{f,s} {west,south,north,east}
+
+# enfocar el nodo para el salto de ruta dado
+#cambia entre ventanas
+#enfocar el nodo siguiente / anterior en el escritorio actual
+super + {_,shift + }c
+	bspc node -f {next,prev}.local
+
+
+# enfocar o enviar al escritorio dado
+super + {_,shift + }{1-9,0}
+	bspc {desktop -f,node -d} '^{1-9,10}'
+
+#
+# preselect
+#
+
+# donde se abrira la nuea ventana
+super + ctrl + {h,j,k,l}
+	bspc node -p {west,south,north,east}
+
+# mover a un escritorio la ventana
+super + ctrl + {1-9}
+	bspc node -o 0.{1-9}
+
+
+#
+# move/resize
+#
+
+# expandir una ventana moviendo uno de sus lados hacia afuera
+super + alt + {h,j,k,l}
+	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+# contraer una ventana moviendo uno de sus lados hacia adentro
+super + alt + shift + {h,j,k,l}
+	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+
+# mover una ventana flotante
+super + {Left,Down,Up,Right}
+	bspc node -v {-20 0,0 20,0 -20,20 0}
+# Captura de pantalla
+Print
+	flameshot full -c -p ~/Imágenes/Capturas
+#seleccionar area de captura
+super + Print
+	flameshot gui
+
+# state/flags
+#
+
+# set the window state
+super + {a,s,d,f}
+	bspc node -t {pseudo_tiled,floating,tiled,fullscreen}
+#lanzar la ventana actial al centro
+alt + space
+	bspc node -t "~"{floating,tiled}
+#apagar + cmatrix
+
+alt + o
+	xfce4-terminal -e off
+#_______________________________
+#subir volumen
+#esos funcionan con script separados..
+alt + F12
+     xfce4-terminal -e subir
+#bajar volumen
+alt + F11
+      xfce4-terminal -e bajar
+#silenciar
+alt + F10
+	xfce-terminal -e mute
+#__________________________
+#abrir editor de texto
+super + m
+	mousepad 
+#mostrar/ocultar polyba
+super + ctrl + p
+	polybar-msg cmd toggle
+
+
+super + b
+	i3lock-fancy -gpf Comic-Sans-MS
+#debes instalar este repo
+alt + r
+	$HOME/.config/networkmanager-dmenu/networkmanager_dmenu
